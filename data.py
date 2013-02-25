@@ -3,12 +3,11 @@ STATES = { # translate trac terminology to GH issues
 		'assigned': 'open',
 		'reopened': 'open',
 		'closed': 'closed',
-		}
+	}
 
 LABELS = {# merge some priority classes and components we only used rarely.
-		# Set target label to '' and it will be removed from the label list for GH.
-		# Default behavior is to keep all priority, component, type labels and lowercase them.
-		
+	  # Set target label to '' and it will be removed from the label list for GH.
+	  # Default behavior is to keep all priority, component, type labels and lowercase them.
 		'demos/pychan_demo':'demo',
 		'demos/rio_de_hola':'demo',
 		'demos/shooter':'demo',
@@ -84,7 +83,7 @@ MILESTONES = { # assign temporary, unique ID for each milestone
 # or email address {'email': email@ddress) (only if GH account exists for that mail)
 DEFAULT_USER = {'login' : 'fifengine'}
 USERNAMES = {
-				'anonymous' : {'login' : 'fifengine'},
+		'anonymous' : {'login' : 'fifengine'},
                 'Beliar' : {'login' : 'Beliaar'}, # yes, two 'a'
                 'Beliar@gmx.de' : {'login' : 'Beliaar'}, # yes, two 'a'
                 'Beliar <KarstenBock@gmx.net>' : {'login' : 'Beliaar'}, # yes, two 'a'
@@ -112,16 +111,15 @@ USERNAMES = {
                 'kaschte' : {'login' : 'kaschte'},
                 'ketheriel' : {'login' : 'ketheriel'},
                 'kili' : {'login' : 'stubb'},
-				'KIlian]' : {'login' : 'stubb'},
-				'Kilian]' : {'login' : 'stubb'},
+		'KIlian]' : {'login' : 'stubb'},
+		'Kilian]' : {'login' : 'stubb'},
                 'kinshuksunil' : {'login' : 'kinshuksunil'},
                 'Kiryx' : {'login' : 'kiryx'},
                 'knutas' : {'login' : 'kennedyshead'},
                 'kozmo' : {'login' : 'k0zmo'},
-                'labrat' : {'login' : 'labrat'}, #?? Tom.Hey@mail.com
                 'LinuxDonald' : {'login' : 'LinuxDonald'},
-				'LinuxDonald <linuxdonald@linuxdonald.de>' : {'login' : 'LinuxDonald'},
-				'LinuxDonald (OpenAnno)' : {'login' : 'LinuxDonald'},
+		'LinuxDonald <linuxdonald@linuxdonald.de>' : {'login' : 'LinuxDonald'},
+		'LinuxDonald (OpenAnno)' : {'login' : 'LinuxDonald'},
                 'mage' : {'login' : 'mage666'},
                 'manuel' : {'login' : 'manuelm'},
                 'manue|' : {'login' : 'manuelm'},
@@ -132,7 +130,7 @@ USERNAMES = {
                 'mssssm' : {'login' : 'mssssm'},
                 'MSSSSM' : {'login' : 'mssssm'},
                 'mtfk' : {'login' : 'mitfik'},
-				'MuteX' : {'login' : 'TankOs'},         
+		'MuteX' : {'login' : 'TankOs'},         
                 'mvBarracuda' : {'login' : 'mvbarracuda'},
                 'nightraven' : {'login' : 'tschroefel'},
                 'Nightraven' : {'login' : 'tschroefel'},
@@ -159,97 +157,98 @@ USERNAMES = {
                 }
 
 UNKNOWN = {
-				'anxs' : {'login' : 'anxs'}, #?? anxs@justmail.de
-                'CheeseSucker' : {'login' : 'CheeseSucker'}, #?? cheesesucker@sinnsyk.com
-                'Cheesesucker' : {'login' : 'CheeseSucker'}, #?? cheesesucker@sinnsyk.com
-                'chewie' : {'login' : 'chewie'}, #?? chewie@gmx.net
-                'donbachi' : {'login' : 'donbachi'}, #?? donbachi@bachmor.de
-                'icelus' : {'login' : 'icelus'}, #?? icelus2k5@gmail.com
-                'ismarc' : {'login' : 'ismarc'}, #?? ismarc31@gmail.com
-                'jasoka' : {'login' : 'jasoka'}, #?? j.jasoka@gmail.com
-				'Moritz Beller <moritzbeller@gmx.de>' : {'login' : 'mortiz'}, #?? mortizfife@googlemail.com
-				'mortiz' : {'login' : 'mortiz'}, #?? mortizfife@googlemail.com
-                'joeh' : {'login', 'joeh'}, #?? joe.hegarty@gmail.com
-                'joe_hegarty' : {'login', 'joeh'}, #?? joe.hegarty@gmail.com
-                'Joshdan' : {'login', 'joshdan'}, #?? joshdan@namba1.com
-                'jwt' : {'login', 'jwt'}, #?? jthickstun@gmail.com
-                'Neurogeek' : {'login' : 'neurogeek'}, #?? jesus.riveroa@gmail.com
-                'sja' : {'login' : 'sja'}, #?? sja@mail.org
-                'skybound' : {'login' : 'skybound'}, #?? under.northern.sky@googlemail.com
-                'sleek' : {'login' : 'sleek'}, #?? dean98@gmail.com
-                'Sleek' : {'login' : 'sleek'}, #?? dean98@gmail.com
-                'NikN' : {'login' : 'nikn'}, #?? nihonnik@gmail.com
-                'phoku' : {'login' : 'phoku'}, #?? klaus.blindert@web.de
-                'plcstpierre' : {'login' : 'plcstpierre'}, #?? plcstpierre@gmail.com
-                'rwilco' : {'login' : 'rwilco'}, #?? rogerwilco@nerdshack.com
-                'Shadowdancer' : {'login' : 'shadowdancer'}, #?? gtdev@spearhead.de
-                'shales' : {'login' : 'shales'}, #?? geoff.salmon@gmail.com
-                'VovanSim' : {'login' : 'vovansim'}, #?? vovansim@gmail.com
-                'vovansim' : {'login' : 'vovansim'}, #?? vovansim@gmail.com
+		'anxs' : {'login' : ''}, #?? anxs@justmail.de
+                'CheeseSucker' : {'login' : ''}, #?? cheesesucker@sinnsyk.com
+                'Cheesesucker' : {'login' : ''}, #?? cheesesucker@sinnsyk.com
+                'chewie' : {'login' : ''}, #?? chewie@gmx.net
+                'donbachi' : {'login' : ''}, #?? donbachi@bachmor.de
+                'icelus' : {'login' : ''}, #?? icelus2k5@gmail.com
+                'ismarc' : {'login' : ''}, #?? ismarc31@gmail.com
+                'jasoka' : {'login' : ''}, #?? j.jasoka@gmail.com
+		'Moritz Beller <moritzbeller@gmx.de>' : {'login' : ''}, #?? mortizfife@googlemail.com
+		'mortiz' : {'login' : ''}, #?? mortizfife@googlemail.com
+                'joeh' : {'login', ''}, #?? joe.hegarty@gmail.com
+                'joe_hegarty' : {'login', ''}, #?? joe.hegarty@gmail.com
+                'Joshdan' : {'login', ''}, #?? joshdan@namba1.com
+                'jwt' : {'login', ''}, #?? jthickstun@gmail.com
+                'Neurogeek' : {'login' : ''}, #?? jesus.riveroa@gmail.com
+                'sja' : {'login' : ''}, #?? sja@mail.org
+                'skybound' : {'login' : ''}, #?? under.northern.sky@googlemail.com
+                'sleek' : {'login' : ''}, #?? dean98@gmail.com
+                'Sleek' : {'login' : ''}, #?? dean98@gmail.com
+                'NikN' : {'login' : ''}, #?? nihonnik@gmail.com
+                'phoku' : {'login' : ''}, #?? klaus.blindert@web.de
+                'plcstpierre' : {'login' : ''}, #?? plcstpierre@gmail.com
+                'rwilco' : {'login' : ''}, #?? rogerwilco@nerdshack.com
+                'Shadowdancer' : {'login' : ''}, #?? gtdev@spearhead.de
+                'shales' : {'login' : ''}, #?? geoff.salmon@gmail.com
+                'VovanSim' : {'login' : ''}, #?? vovansim@gmail.com
+                'vovansim' : {'login' : ''}, #?? vovansim@gmail.com
+                'labrat' : {'login' : ''}, #?? Tom.Hey@mail.com
 
-				'.' : {'login' : ''},
-				'abeyer' : {'login' :''},
-				'abeyer@alum.rpi.edu' : {'login' : ''},
-				'Aeromancer <alex@aeromancer.ca>' : {'login' :''},			
-				'aldart' : {'login' :''}, 
-				'Artur Komarov <artur.komarov@gmail.com>' : {'login' : ''},
-				'artur.komarov@gmail.com' : {'login', ''},
-				'aspidites' : {'login', ''},
-				'austin' : {'login', ''},
-				'c-_-' : {'login', ''},
-				'dauerflucher' : {'login' : ''},
-				'eefano' : {'login' : ''},
-				'ElieDeBrauwer' : {'login' : ''},
-				'Elie De Brauwer <elie@de-brauwer.be>' : {'login' : ''},
-				'Fabian Streitel <fife@rottenrei.be>' : {'login' : ''},
-				'Frenchy' : {'login' : ''},
-				'homer' : {'login' : ''},
-				'ianout' : {'login' : ''},
-				'icefire' : {'login' : ''},
-				'Irene' : {'login' : ''},
-				'janus' : {'login' : ''},
-				'josh_root@users.sourceforge.net' : {'login' : ''},
-				'kefrens' : {'login' : ''},
-				'kiome' : {'login' : ''},
-				'kj@conceptt.com' : {'login' : ''},
-				'kj@onceptt.com' : {'login' : ''},
-				'krytzz@soylent.eu' : {'login' : ''},
-				'leander256' : {'login' : ''},
-				'Mahfuz <65mahfuz90@gmail.com>' : {'login' : ''},
-				'me@thomaskeller.biz' : {'login' : ''},
-				'michel' : {'login' : ''},
-				'Mildred' : {'login' : ''},
-				'mizipzor@gmail.com' : {'login' : ''},
-				'Nelson Marques' : {'login' : ''},
-				'November' : {'login' : ''},
-				'omurcada@gmail.com' : {'login' : ''},
-				'or1andov' : {'login' : ''},
-				'or1andov/superfluid' : {'login' : ''},
-				'ottar' : {'login' : ''},
-				'pH5' : {'login' : ''},
-				'Pharmb195' : {'login' : ''},
-				'philipp.zabel@gmail.com' : {'login' : ''},
-				'qbunia' : {'login' : ''},
-				'rvoezman' : {'login' : ''},
-				'Seven' : {'login' : ''},
-				'SirTwist@web.de' : {'login' : ''},
-				'skangas@skangas.se' : {'login' : ''},
-				'sp3iel' : {'login' : ''},
-				'Stefan Kangas <skangas@skangas.se>' : {'login' : ''},
-				'stefhoff@go4more.de' : {'login' : ''},
-				'TAbracadabra <lobsterbyter@dejazzd.com>' : {'login' : ''},
-				'Technomage' : {'login' : ''},
-				'technopolitica@gmail.com' : {'login' : ''},
-				'tesseract' : {'login' : ''},
-				'Thomas Keller <me@thomaskeller.biz>' : {'login' : ''},
-				'Thomas Martin <thomas@thescoundrels.net>' : {'login' : ''},
-				'trendy' : {'login' : ''},
-				'ulrik@greenarrowgames.com' : {'login' : ''},
-				'uzec' : {'login' : ''},
-				'varnie <varnie29a@mail.ru>' : {'login' : ''},
-				'vja@inbox.ru' : {'login' : ''},
-				'wenlin' : {'login' : ''},
-				'Wuntvor' : {'login' : ''},
-				'zenbitz' : {'login' : ''},
+		'.' : {'login' : ''},
+		'abeyer' : {'login' :''},
+		'abeyer@alum.rpi.edu' : {'login' : ''},
+		'Aeromancer <alex@aeromancer.ca>' : {'login' :''},			
+		'aldart' : {'login' :''}, 
+		'Artur Komarov <artur.komarov@gmail.com>' : {'login' : ''},
+		'artur.komarov@gmail.com' : {'login', ''},
+		'aspidites' : {'login', ''},
+		'austin' : {'login', ''},
+		'c-_-' : {'login', ''},
+		'dauerflucher' : {'login' : ''},
+		'eefano' : {'login' : ''},
+		'ElieDeBrauwer' : {'login' : ''},
+		'Elie De Brauwer <elie@de-brauwer.be>' : {'login' : ''},
+		'Fabian Streitel <fife@rottenrei.be>' : {'login' : ''},
+		'Frenchy' : {'login' : ''},
+		'homer' : {'login' : ''},
+		'ianout' : {'login' : ''},
+		'icefire' : {'login' : ''},
+		'Irene' : {'login' : ''},
+		'janus' : {'login' : ''},
+		'josh_root@users.sourceforge.net' : {'login' : ''},
+		'kefrens' : {'login' : ''},
+		'kiome' : {'login' : ''},
+		'kj@conceptt.com' : {'login' : ''},
+		'kj@onceptt.com' : {'login' : ''},
+		'krytzz@soylent.eu' : {'login' : ''},
+		'leander256' : {'login' : ''},
+		'Mahfuz <65mahfuz90@gmail.com>' : {'login' : ''},
+		'me@thomaskeller.biz' : {'login' : ''},
+		'michel' : {'login' : ''},
+		'Mildred' : {'login' : ''},
+		'mizipzor@gmail.com' : {'login' : ''},
+		'Nelson Marques' : {'login' : ''},
+		'November' : {'login' : ''},
+		'omurcada@gmail.com' : {'login' : ''},
+		'or1andov' : {'login' : ''},
+		'or1andov/superfluid' : {'login' : ''},
+		'ottar' : {'login' : ''},
+		'pH5' : {'login' : ''},
+		'Pharmb195' : {'login' : ''},
+		'philipp.zabel@gmail.com' : {'login' : ''},
+		'qbunia' : {'login' : ''},
+		'rvoezman' : {'login' : ''},
+		'Seven' : {'login' : ''},
+		'SirTwist@web.de' : {'login' : ''},
+		'skangas@skangas.se' : {'login' : ''},
+		'sp3iel' : {'login' : ''},
+		'Stefan Kangas <skangas@skangas.se>' : {'login' : ''},
+		'stefhoff@go4more.de' : {'login' : ''},
+		'TAbracadabra <lobsterbyter@dejazzd.com>' : {'login' : ''},
+		'Technomage' : {'login' : ''},
+		'technopolitica@gmail.com' : {'login' : ''},
+		'tesseract' : {'login' : ''},
+		'Thomas Keller <me@thomaskeller.biz>' : {'login' : ''},
+		'Thomas Martin <thomas@thescoundrels.net>' : {'login' : ''},
+		'trendy' : {'login' : ''},
+		'ulrik@greenarrowgames.com' : {'login' : ''},
+		'uzec' : {'login' : ''},
+		'varnie <varnie29a@mail.ru>' : {'login' : ''},
+		'vja@inbox.ru' : {'login' : ''},
+		'wenlin' : {'login' : ''},
+		'Wuntvor' : {'login' : ''},
+		'zenbitz' : {'login' : ''},
                 'neXyon' : {'login' : ''},
                 }
