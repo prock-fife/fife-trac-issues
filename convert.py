@@ -58,7 +58,7 @@ def trac_to_gh(text):
     t = text.replace('}}}', '```')
     t = t.replace('{{{', '```')
     t = t.replace('[[BR]]', '\n')
-    return t or 'Empty!' # No empty issue bodies are supported
+    return t or '.' # No empty issue bodies are supported
 
 def github_label(text):
     """If you do not like the idea of having all your labels converted to
@@ -67,10 +67,7 @@ def github_label(text):
     return unicode(text.lower())
 
 def github_time(date):
-    """Takes trac date, returns github-ready timestamp. Yes, trac
-    for whatever reason may store dates in a highly weird format.
-    Only necessary for comments, the tickets are extracted per web
-    and thus do not rely on a date representation in trac's db.
+    """Takes trac date, returns github-ready timestamp.
     """
     time = DateTime(str(date))
     return time.ISO8601()
@@ -94,22 +91,23 @@ def massage_comment(ticket, date, author, body):
           'created_at': github_time(date),
           }
 
-def write_issue(row, outfile):
+def write_issue(ticket, outfile):
     """Dumps a csv line *row* from the issue query to *outfile*.
     """
-    for key, value in row.items():
-        row[key] = row[key].decode('utf-8')
+#    for key, value in row.items():
+#        row[key] = row[key].decode('utf-8')
     # Issue text body
-    body = row.get('_description', u'')
-    body = trac_to_gh(body) + '\r\n\r\n' \
-        '[> Link to originally reported Trac ticket <] ({url})'.format(
-        url=TRAC_TICKET_URL % row['ticket'])
+    body = ticket[3]['description']
+    body = trac_to_gh(body)
+#    body = trac_to_gh(body) + '\r\n\r\n' \
+#        '[> Link to originally reported Trac ticket <] ({url})'.format(
+#        url=TRAC_TICKET_URL % row['ticket'])
 
     # Default state: open (no known resolution)
-    state = STATES.get(row.get('status'), 'open')
+    state = STATES.get(ticket[3]['status'], 'open')
 
     # Trac will have stored some kind of username.
-    reporter = row['_reporter']
+    reporter = ticket[3]['reporter']
 
     # Not sure whether we have a related github account for that user.
     if USERNAMES.get(reporter):
@@ -120,13 +118,13 @@ def write_issue(row, outfile):
 
     # Whether this is stored in 'milestone' or '__group__' depends on the
     # query type. Try to find the data or assign the default milestone 0.
-    milestone_info = row.get(('milestone'), row.get('__group__'))
+    milestone_info = ticket[3]['milestone']
     milestone = MILESTONES.get(milestone_info, 0)
 
     labels = [] # Collect random tags that might serve as labels
     for tag in ('type', 'component', 'priority'):
-        if row.get(tag) and LABELS.get(row[tag]):
-            label = LABELS[row[tag]]
+        if ticket[3].get(tag) and LABELS.get(ticket[3][tag]):
+            label = LABELS[ticket[3][tag]]
             labels.append({'name': github_label(label)})
 
     # Also attach a special label to our starter tasks.
@@ -135,12 +133,12 @@ def write_issue(row, outfile):
     #    labels.append({'name': unicode(LABELS.get('start').lower())})
 
     # Dates
-    updated_at = row.get('modified') or row.get('_changetime')
-    created_at = row.get('created') or updated_at
+    updated_at = DateTime(str(ticket[2])).ISO8601()
+    created_at = DateTime(str(ticket[1])).ISO8601()
 
     # Now prepare writing all data into the json files
     dct = {
-          'title': row['summary'],
+          'title': ticket[3]['summary'],
           'body': body,
           'state': state,
           'user': userdata,
@@ -151,7 +149,7 @@ def write_issue(row, outfile):
        }
 
     # Assigned user in trac and github account of that assignee
-    assigned_trac = row.get('owner')
+    assigned_trac = ticket[3]['owner']
     assigned = USERNAMES.get(assigned_trac)
     # Assigning really does not make sense without github account
     if state == 'open' and assigned:
@@ -184,19 +182,15 @@ def main():
     # Write the ticket comments to json files indicating their parent issue
     #######################################################################
     for ticket, data in comment_coll.iteritems():
-        with open(ISSUES_PATH % ticket, 'w') as f:
+        with open(COMMENTS_PATH % ticket, 'w') as f:
             json.dump(data, f, indent=5)
 
     #######################################################################
     # Write the actual ticket data to separate json files (GitHub API v3)
     #######################################################################
-#    csv_data = urllib.urlopen(TRAC_REPORT_URL)
-#    ticket_data = csv.DictReader(csv_data)
-#    for row in ticket_data:
-#        if not (row.get('summary') and row.get('ticket')):
-#            continue
-#        with open(ISSUES_PATH % row['ticket'], 'w') as f:
-#            write_issue(row, f)
+    for ticketid in tickets:
+        with open(ISSUES_PATH % str(ticketid), 'w') as f:
+            write_issue(tickets[ticketid], f)
 
     #######################################################################
     # Finally, dump all milestones and the related data. This script is not
