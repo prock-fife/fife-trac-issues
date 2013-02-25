@@ -4,9 +4,6 @@ This script was used to migrate data of our trac installation (around 1'800 tick
 It writes json files as specified in APIv3.
 Partially based on [github-trac-ticket-import](https://github.com/adamcik/github-trac-ticket-import) by @adamcik.
 
-Since the migration happened already, i'm not actively testing nor maintaining this code any longer.
-Feel free to ask questions though if something is horribly unclear!
-
 The basic assumptions made should be documented in `convert.py`.
 You will definitely need to edit `data.py`, which we didn't bother converting to YAML.
 
@@ -14,26 +11,10 @@ Find below documentation for our specific migration needs and the MIT license.
 
 Procedure to update comments.csv
 ================================
-Extract newest sql stuff from trac (web interface and db),
-I use the phpmyadmin account
-```sql
-SELECT ticket, time, author, newvalue FROM ticket_change
-  WHERE field='comment' AND newvalue AND time > FILL-IN-DATE-HERE
-	ORDER BY time DESC
-```
-Click export, export as csv, save as updated-comments.csv with these options:
-```
-	terminated by ,
-	enclosed by '
-	escaped by \
-	AUTO NULL
-	no no
-```
-Process the resulting file in e.g. vim as you need ( `%s,\\','',g` )
 
-Append the file to comments.csv ( `cat updated-comments.csv >> comments.csv` )
+Execute `python2 dumpapi.py -u <trac_username> -p <trac_password>`.  When this is done (it will take some time to dump the tickets) you will have a `comments.csv` file (still a work in progres).
 
-`python2 convert.py`
+Next execute: `python2 convert.py`
 
 If there is any output besides a list of tickets, check that malformed row in csv
 
@@ -41,7 +22,7 @@ Probably missed some sort of escaping or the replacement algorithm went really w
 
 When everything looks good:
 
-`tar -czf unknown-horizons.tar.gz unknown-horizons/`
+`tar -czf fife.tar.gz fife/`
 
 And bother a poor github admin once more!
 
@@ -49,7 +30,8 @@ License
 =======
 The MIT License (MIT)
 
-Copyright (c) 2012 Chris Oelmueller <chris.oelmueller@gmail.com>
+Copyright (c) 2013 Wayne Prasek <wprasek@gmail.com>
+based on work Copyright (c) 2012 Chris Oelmueller <chris.oelmueller@gmail.com>
 based on work Copyright (c) 2010 Thomas Adamcik
 
 Permission is hereby granted, free of charge,  to any person obtaining a copy
