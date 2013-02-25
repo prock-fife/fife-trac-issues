@@ -12,19 +12,21 @@ Find below documentation for our specific migration needs and the MIT license.
 Procedure to update comments.csv
 ================================
 
-Execute `python2 dumpapi.py -u <trac_username> -p <trac_password>`.  When this is done (it will take some time to dump the tickets) you will have a `comments.csv` file (still a work in progres).
+Edit `tracdump.py`.
 
-Next execute: `python2 convert.py`
+Execute `python2 tracdump.py -u <trac_username> -p <trac_password>`.  When this is done (it will take some time to dump the tickets) you will have a `<repo>/tickets.p` file.
 
-If there is any output besides a list of tickets, check that malformed row in csv
+Edit `convert.py`
 
-Probably missed some sort of escaping or the replacement algorithm went really wild
+Execute `python2 convert.py`
 
 When everything looks good:
 
-`tar -czf fife.tar.gz fife/`
+`tar -czf fife.tar.gz <repo>/`
 
 And bother a poor github admin once more!
+
+
 ```
 License
 =======
