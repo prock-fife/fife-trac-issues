@@ -1,7 +1,8 @@
 #!/usr/bin/env python2
 # The MIT License (MIT)
 #
-# Copyright (c) 2012 Chris Oelmueller <chris.oelmueller@gmail.com>
+# Copyright (c) 2013 Wayne Prasek <wprasek@gmail.com>
+# based on work Copyright (c) 2012 Chris Oelmueller <chris.oelmueller@gmail.com>
 # based on work Copyright (c) 2010 Thomas Adamcik
 #
 # Permission is hereby granted, free of charge,  to any person obtaining a copy
