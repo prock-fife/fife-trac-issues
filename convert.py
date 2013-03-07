@@ -95,14 +95,9 @@ def massage_comment(ticket, date, author, body):
 def write_issue(ticket, outfile):
     """Dumps a csv line *row* from the issue query to *outfile*.
     """
-#    for key, value in row.items():
-#        row[key] = row[key].decode('utf-8')
     # Issue text body
     body = ticket[3]['description']
     body = trac_to_gh(body)
-#    body = trac_to_gh(body) + '\r\n\r\n' \
-#        '[> Link to originally reported Trac ticket <] ({url})'.format(
-#        url=TRAC_TICKET_URL % row['ticket'])
 
     # Default state: open (no known resolution)
     state = STATES.get(ticket[3]['status'], 'open')
@@ -128,22 +123,18 @@ def write_issue(ticket, outfile):
             label = LABELS[ticket[3][tag]]
             labels.append({'name': github_label(label)})
 
-    # Also attach a special label to our starter tasks.
-    # Again, please ignore this.
-    #if row['ticket'] in easy_tickets:
-    #    labels.append({'name': unicode(LABELS.get('start').lower())})
 
     # Dates
     updated_at = DateTime(str(ticket[2])).ISO8601()
     created_at = DateTime(str(ticket[1])).ISO8601()
-
+    
     # Now prepare writing all data into the json files
     dct = {
           'title': ticket[3]['summary'],
           'body': body,
           'state': state,
           'user': userdata,
-          'milestone': {'number': milestone},
+          'milestone': int(milestone),
           'labels': labels,
           'updated_at': updated_at,
           'created_at': created_at,
@@ -183,8 +174,9 @@ def main():
     # Write the ticket comments to json files indicating their parent issue
     #######################################################################
     for ticket, data in comment_coll.iteritems():
-        with open(COMMENTS_PATH % ticket, 'w') as f:
-            json.dump(data, f, indent=5)
+        if (comment_coll[ticket][0]['body'] != '.'):
+            with open(COMMENTS_PATH % ticket, 'w') as f:
+                json.dump(data, f, indent=5)
 
     #######################################################################
     # Write the actual ticket data to separate json files (GitHub API v3)
@@ -206,21 +198,6 @@ def main():
                 'title': name,
             }
             json.dump(dct, f, indent=5)
-
-    #######################################################################
-    # Since trac supports ticket deletion, the following was a quick hack
-    # to obtain the IDs of all tickets that no longer exist. We used that
-    # list to rename existing GH issues to numbers from this pool.
-    # All pull requests have an issue ID attached, so you may have issues
-    # in your otherwise empty repository without realizing this!
-    # Best check with your awesome github go-to if you are not sure.
-    #######################################################################
-    #ticketnumbers = csv.reader(open('ticket-ids.csv', 'rb'),
-    #                           delimiter=CSVDELIM, quotechar=CSVESCAPE)
-    #t_ids = set([int(t[0]) for t in ticketnumbers])
-    #available_ids = [i for i in range(1, max(t_ids)) if i not in t_ids]
-    #print len(available_ids), max(t_ids) + 1,  sorted(available_ids)
-    #######################################################################
 
 if __name__ == '__main__':
     main()

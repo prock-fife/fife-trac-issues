@@ -120,7 +120,7 @@ def main():
 	server = xmlrpclib.ServerProxy(url) 
 
 	dump_lists(server)
-	#dump_tickets(server)
+	dump_tickets(server)
 	dump_authors()
 
 if __name__ == '__main__':
