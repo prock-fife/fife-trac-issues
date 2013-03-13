@@ -41,7 +41,7 @@ REPO = 'fife/'
 # Locations of particular files. It is recommended to keep issues
 # and comments  in the same directory, which usually is issues/.
 ISSUES_PATH = REPO + 'issues/%s.json'
-COMMENTS_PATH = REPO + 'issues/%s.comments.json'
+COMMENTS_PATH = REPO + 'issues/%s.%s.comments.json'
 MILESTONES_PATH = REPO + 'milestones/%s.json'
 # Path to the ticket pickle file
 TICKET_FILE = REPO + 'tickets.p'
@@ -84,8 +84,10 @@ def massage_comment(ticket, date, author, body):
         user = USERNAMES[author]
     else: # If we do not, at least mention the user in our comment body
         user = DEFAULT_USER
-        body = 'This comment was posted by **{reporter}**\r\n\r\n'.format(
-            reporter=author) + body
+    
+    body = 'This comment was posted by **{reporter}**\r\n\r\n'.format(
+            reporter=author) + body + "\r\n\r\n" + github_time(date)
+
     return {
           'body': body,
           'user': user,
@@ -110,12 +112,13 @@ def write_issue(ticket, outfile):
         userdata = USERNAMES[reporter]
     else: # If we do not, at least mention the user in our issue body
         userdata = DEFAULT_USER
-        body = ('This issue was reported by **%s**\r\n\r\n' % reporter) + body
+    
+    body = ('This issue was reported by **%s**\r\n\r\n' % reporter) + body
 
     # Whether this is stored in 'milestone' or '__group__' depends on the
     # query type. Try to find the data or assign the default milestone 0.
     milestone_info = ticket[3]['milestone']
-    milestone = MILESTONES.get(milestone_info, 0)
+    milestone = MILESTONES.get(milestone_info, 3)
 
     labels = [] # Collect random tags that might serve as labels
     for tag in ('type', 'component', 'priority'):
@@ -141,11 +144,12 @@ def write_issue(ticket, outfile):
        }
 
     # Assigned user in trac and github account of that assignee
-    assigned_trac = ticket[3]['owner']
-    assigned = USERNAMES.get(assigned_trac)
+#    assigned_trac = ticket[3]['owner']
+#    assigned = USERNAMES.get(assigned_trac)
     # Assigning really does not make sense without github account
-    if state == 'open' and assigned:
-        dct['assignee'] = assigned
+#    if state == 'open' and assigned and assigned['login'] != 'fifengine':
+#        print assigned
+#        dct['assignee'] = assigned
 
     # Everything collected, write the json file
     json.dump(dct, outfile, indent=5)
@@ -175,8 +179,11 @@ def main():
     #######################################################################
     for ticket, data in comment_coll.iteritems():
         if (comment_coll[ticket][0]['body'] != '.'):
-            with open(COMMENTS_PATH % ticket, 'w') as f:
-                json.dump(data, f, indent=5)
+            count = 0
+            for row in data:
+                with open(COMMENTS_PATH % (ticket,count), 'w') as f:
+                    json.dump(row, f, indent=5)
+                    count = count + 1
 
     #######################################################################
     # Write the actual ticket data to separate json files (GitHub API v3)
